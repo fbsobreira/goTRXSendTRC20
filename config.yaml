@@ -1,0 +1,4 @@
+api: 
+  fullNode: grpc.trongrid.io:50051
+
+privateKey: b5a4cea271ff424d7c31dc12a3e43e401df7a40d7412a15750f3f0b6b5449a28

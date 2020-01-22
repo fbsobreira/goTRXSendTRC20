@@ -8,9 +8,9 @@ BINARY_NAME=sendTRC20
 BINARY_UNIX=$(BINARY_NAME)_unix
 
 
-all: deps build
+all: deps proto build
 
-build:
+build: proto
 	$(GOBUILD) -o $(BINARY_NAME) -v ./
 
 test: 
@@ -20,6 +20,10 @@ clean:
 	$(GOCLEAN) ./...
 	rm -f $(BINARY_NAME)
 	rm -f $(BINARY_UNIX)
+
+proto: 
+	protoc -I=./protocol -I/usr/lib -I$(GOPATH)/src/github.com/sasaxie/go-client-api/third_party/googleapis --go_out=plugins=grpc:$(GOPATH)/src ./protocol/api/*.proto
+	protoc -I=./protocol -I/usr/lib -I$(GOPATH)/src/github.com/sasaxie/go-client-api/third_party/googleapis --go_out=plugins=grpc:$(GOPATH)/src ./protocol/core/*.proto
 
 run:
 	$(GOBUILD) -o $(BINARY_NAME) -v ./
